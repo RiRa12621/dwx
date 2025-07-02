@@ -101,7 +101,7 @@ RUN ./dwx
 ## Union Filesystem
 
 * Also called "union mount"
-* Not an actual filesystem, just the conecept
+* Not an actual filesystem, just the concept
   * Multiple sources "virtually" get merged into a single result
 * Where could this be useful?
   * `/home/rick` and `/home/mywife` get mered into `/newHome`
@@ -111,13 +111,13 @@ RUN ./dwx
   * OverlayFS
     * part of the kernel :yay:
     * used by docker storage driver `overlay2`
-    * better performance than other driverse
+    * better performance than other drivers
     * very efficient use of page cashes
   * aufFS
     * Re-implementation of UnionFS
     * used to be default for docker
     * reject from mainline Kernel
-    * Adavantages:
+    * Advantages:
       * shares images across running containers
         * fast startup times
         * little space usage

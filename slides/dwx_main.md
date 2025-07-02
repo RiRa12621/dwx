@@ -1,3 +1,9 @@
+---
+theme: https://raw.githubusercontent.com/charmbracelet/glamour/refs/heads/master/styles/dracula.json
+author: Rick Rackow @Developer Week
+date: July 02, 2025
+paging: Slide %d / %d
+---
 # Intro
 ## Rick Rackow
 

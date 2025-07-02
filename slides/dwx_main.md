@@ -105,6 +105,11 @@ RUN ./dwx
   * Multiple sources "virtually" get merged into a single result
 * Where could this be useful?
   * `/home/rick` and `/home/mywife` get mered into `/newHome`
+
+---
+# Filesystems
+## Overlay and friends
+
 * Actual implementations:
   * UnionFS
     * git.fsl.cs.sunysb.edu dead so most likely dead as a whole

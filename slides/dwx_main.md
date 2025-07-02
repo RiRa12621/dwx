@@ -22,14 +22,13 @@
 ## Agenda
 
 * Containers and what we can do with them
-* Dockerfiles
-* Where we find container layers
-* What is a layer
+  * Dockerfiles
+* Container Layers
+  * Where to we find them
 * Filesystems
-  * UnionFS
+  * Union Filesystem
   * OverlayFS
 * Demo
-* More Demo
 * Q & A
 
 ---
@@ -50,7 +49,79 @@
 
 
 ```dockerfile
-FROM ubuntu
+FROM golang
 
+WORKDIR /app
 
+COPY . .
+
+RUN go get -v && \
+      CGO_ENABLED=0 GOOS=linux go build -o dwx
+
+RUN ./dwx
 ```
+
+---
+
+# Container Layers
+## Where do we find them?
+
+** Everywhere **
+
+
+---
+# Container Layers
+## Where do we find them?
+
+* Running containers are made of layers
+* Every instruction in dockerfile creates a new layer
+* Should we optimize for amount of layers?
+
+---
+# Container Layers
+## Where do we find them?
+
+Example from before: 
+
+```dockerfile
+FROM golang
+
+WORKDIR /app
+
+COPY . .
+
+RUN go get -v && \
+      CGO_ENABLED=0 GOOS=linux go build -o dwx
+
+RUN ./dwx
+```
+
+---
+# Filesystems
+## Union Filesystem
+
+* Also called "union mount"
+* Not an actual filesystem, just the conecept
+  * Multiple sources "virtually" get merged into a single result
+* Where could this be useful?
+  * `/home/rick` and `/home/mywife` get mered into `/newHome`
+* Actual implementations:
+  * UnionFS
+    * git.fsl.cs.sunysb.edu dead so most likely dead as a whole
+  * OverlayFS
+    * part of the kernel :yay:
+    * used by docker storage driver `overlay2`
+    * better performance than other driverse
+    * very efficient use of page cashes
+  * aufFS
+    * Re-implementation of UnionFS
+    * used to be default for docker
+    * reject from mainline Kernel
+    * Adavantages:
+      * shares images across running containers
+        * fast startup times
+        * little space usage
+  * More:
+    * zfs
+    * btrfs
+    * ...
